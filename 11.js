@@ -3,17 +3,25 @@
  * @return {number}
  */
 var maxArea = function (height) {
-    let resultArray = []
-    let returnArray = function (firstIndex, lastIndex) {
-        if (lastIndex - firstIndex === 0) return;
-        resultArray.push((lastIndex - firstIndex) * (height[firstIndex] > height[lastIndex] ? height[lastIndex] : height[firstIndex]))
-        if (height[firstIndex] > height[lastIndex]) {
-            returnArray(firstIndex, lastIndex - 1)
-        } else {
-            returnArray(firstIndex + 1, lastIndex)
-        }
+  let returnArray = function (firstIndex, lastIndex, result) {
+    if (lastIndex - firstIndex === 0) return result;
+    let tem = 0;
+    if (height[lastIndex] < height[firstIndex]) {
+      tem = height[lastIndex] * (lastIndex - firstIndex);
+    } else {
+      tem = height[firstIndex] * (lastIndex - firstIndex);
     }
-    returnArray(0, height.length - 1)
-    console.log()
-    return Math.max.apply(null, resultArray)
+    if (tem > result) {
+      result = tem;
+    }
+    if (height[firstIndex] > height[lastIndex]) {
+      return returnArray(firstIndex, lastIndex - 1, result);
+    } else {
+      return returnArray(firstIndex + 1, lastIndex, result);
+    }
+  };
+  return returnArray(0, height.length - 1, 0);
 };
+
+const height = [1, 8, 6, 2, 5, 4, 8, 3, 7];
+console.error(maxArea(height));

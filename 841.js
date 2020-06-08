@@ -1,6 +1,5 @@
 var canVisitAllRooms = function (rooms) {
-    let entered = [0],
-        toEnter = rooms[0];
+    let entered = [0];
     let underA = function (toEnter) {
         let enters = []
         if (!toEnter) return
@@ -14,7 +13,7 @@ var canVisitAllRooms = function (rooms) {
             underA(enters)
         }
     }
-    underA(toEnter)
+    underA( rooms[0])
     return entered.length === rooms.length
 };
 canVisitAllRooms([[1,3],[3,0,1],[2],[0]])
