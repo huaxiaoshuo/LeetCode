@@ -1,17 +1,16 @@
 #! /bin/bash
+# chmod +x ./git.sh   使git.sh具备运行权限
 
-function git-branch-name {
+# 获取本地分支名称
+function get-branch-name {
   git symbolic-ref --short -q HEAD
 }
-function git-branch-prompt {
-  local branch=`git-branch-name`
-  echo $branch
+
+# 本地分支代码push到远程分支
+function git-branch-push {
+  local branch=`get-branch-name`
   git push -f origin $branch:test
-#   if [ $branch ]; then printf " [%s]" $branch; fi
 }
-echo `git-branch-prompt`
-# PS1="\u@\h \[\033[0;36m\]\W\[\033[0m\]\[\033[0;32m\]\$(git-branch-prompt)\[\033[0m\] \$ "
+git-branch-push
 
-
-# git pull origin master
-echo "Success\n";
+echo "Success";
