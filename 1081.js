@@ -3,14 +3,17 @@
  * @return {string}
  */
 var smallestSubsequence = function(text) {
-    let textArr = []
-    for (let a = 0; a < text.length; a++) {
-        textArr.push(text.charCodeAt(a))
+    let textArr = [],
+    resultArr = [],
+    getArray = (arr) => Array.from(new Set(arr))
+    textArr = text.split('')
+    for (let a = 0; a <= textArr.length - getArray(textArr).length; a++) {
+        let item = getArray(textArr.slice(a, textArr.length))
+        if (item.length === getArray(textArr).length) {
+            resultArr.push(item.join(''))
+        }
     }
-    textArr = Array.from(new Set(textArr))
-    textArr.sort((a, b) => {
-        return a - b
-    })
-    console.error(textArr)
+   resultArr = resultArr.sort()
+   return resultArr[0]
 };
-console.error(smallestSubsequence('cdadabcc'))
+console.error(smallestSubsequence('ecbacba'))
